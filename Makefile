@@ -1,8 +1,8 @@
 install: #развёртвыем poetry
 	poetry install
 
-gendiff: #запуск brain-games
-	poetry run gendiff
+gendiff_help: #запуск мануала по gendiff
+	poetry run gendiff -h
 
 build: #сборка пакета
 	poetry build
