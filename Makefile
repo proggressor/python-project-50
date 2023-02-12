@@ -1,7 +1,7 @@
 install: #развёртвыем poetry
 	poetry install
 
-gendiff_help: #запуск мануала по gendiff
+gendiff: #запуск мануала по gendiff
 	poetry run gendiff -h
 
 build: #сборка пакета
@@ -15,4 +15,5 @@ package-install: #установка пакета из ОС
 	
 lint: #запуск линтера
 	poetry run flake8 gendiff
-	
+
+.PHONY: gendiff
