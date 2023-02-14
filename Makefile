@@ -16,7 +16,7 @@ gendiff:
 	poetry run gendiff
 
 lint: # запуск линтера
-	poetry run flake8 gendiff
+	poetry run flake8 gendiff tests
 
 test: # запуск тестов
 	poetry run pytest
