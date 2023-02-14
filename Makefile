@@ -18,9 +18,8 @@ lint: # запуск линтера
 
 test: # запуск текстов
 	poetry run pytest
-
-test-coverage:
 	poetry run pytest --cov=gendiff --cov-report xml
 	poetry run pytest --cov-report term-missing --cov=gendiff
 
-.PHONY: gendiff install test lint selfcheck check build
+
+.PHONY: gendiff install test lint build
