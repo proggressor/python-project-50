@@ -22,9 +22,4 @@ test: # запуск текстов
 test-coverage:
 	poetry run pytest --cov=gendiff --cov-report xml
 
-selfcheck:
-	poetry check
-
-check: selfcheck test lint
-
 .PHONY: gendiff install test lint selfcheck check build
