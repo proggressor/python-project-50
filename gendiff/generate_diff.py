@@ -13,16 +13,16 @@ def diff_tree(data1, data2):
     result = {}
     for key in keys:
         if key not in data1:
-            result[key] = {'key': key, 'value': stringify(data2.get(key)),
+            result[key] = {'value': stringify(data2.get(key)),
                            'category': 'added'}
         elif key not in data2:
-            result[key] = {'key': key, 'value': stringify(data1.get(key)),
+            result[key] = {'value': stringify(data1.get(key)),
                            'category': 'deleted'}
         elif data1[key] == data2[key]:
-            result[key] = {'key': key, 'value': stringify(data1.get(key)),
+            result[key] = {'value': stringify(data1.get(key)),
                            'category': 'unchanged'}
         else:
-            result[key] = {'key': key, 'old': stringify(data1.get(key)),
+            result[key] = {'old': stringify(data1.get(key)),
                            'new': stringify(data2.get(key)),
                            'category': 'changed'}
     return result
