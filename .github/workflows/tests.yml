@@ -1,4 +1,4 @@
-name: Test and test coverage
+name: Python CI
 
 on:
   push:
