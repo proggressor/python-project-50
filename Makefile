@@ -16,4 +16,15 @@ package-install: #установка пакета из ОС
 lint: #запуск линтера
 	poetry run flake8 gendiff
 
-.PHONY: gendiff
+test:
+	poetry run pytest
+
+test-coverage:
+	poetry run pytest --cov=gendiff --cov-report xml
+
+selfcheck:
+	poetry check
+
+check: selfcheck test lint
+
+.PHONY: gendiff install test lint selfcheck check build
