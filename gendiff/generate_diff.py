@@ -1,5 +1,5 @@
-import json
 import itertools
+from gendiff.parser import format_parser
 
 
 def stringify(value):
@@ -28,10 +28,8 @@ def diff_tree(data1, data2):
     return result
 
 
-def generate_diff(file1, file2):
-    data1 = json.load(open(file1))
-    data2 = json.load(open(file2))
-
+def generate_diff(file_path1, file_path2):
+    data1, data2 = format_parser(file_path1), format_parser(file_path2)
     difference = diff_tree(data1, data2)
     lines = []
 
@@ -48,3 +46,6 @@ def generate_diff(file1, file2):
                 lines.append(f'  + {key}: {difference.get(key).get("new")}')
     result = itertools.chain("{", lines, "}")
     return '\n'.join(result)
+
+
+# print(generate_diff('tests/fixtures/test_file1.yml', 'tests/fixtures/test_file2.yml'))
