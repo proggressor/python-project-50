@@ -28,9 +28,8 @@ def diff_tree(data1, data2):
     return result
 
 
-def generate_diff(file_path1, file_path2):
-    data1, data2 = format_parser(file_path1), format_parser(file_path2)
-    difference = diff_tree(data1, data2)
+def generate_diff(f_path1, f_path2):
+    difference = diff_tree(format_parser(f_path1), format_parser(f_path2))
     lines = []
 
     for key in sorted(difference.keys()):
@@ -46,6 +45,3 @@ def generate_diff(file_path1, file_path2):
                 lines.append(f'  + {key}: {difference.get(key).get("new")}')
     result = itertools.chain("{", lines, "}")
     return '\n'.join(result)
-
-
-# print(generate_diff('tests/fixtures/test_file1.yml', 'tests/fixtures/test_file2.yml'))
