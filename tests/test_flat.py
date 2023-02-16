@@ -7,7 +7,7 @@ from gendiff.generate_diff import generate_diff
     ('fixtures/test_file1.json', 'fixtures/test_file2.json',
      test_results.flat_file1),
     ('fixtures/test_file3.json', 'fixtures/test_file4.json',
-     test_results.flat_file2)
+     test_results.flat_file2),
 ])
 def test_json(file_path1, file_path2, expected):
     assert generate_diff(file_path1, file_path2) == expected
