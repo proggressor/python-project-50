@@ -1,47 +1,39 @@
-import itertools
-from gendiff.parser import format_parser
+from gendiff.parser import parser
+from gendiff.formatters import formatters_map
 
 
 def stringify(value):
     if isinstance(value, bool):
         return str(value).lower()
+    elif value is None:
+        return 'null'
     return value
 
 
-def diff_tree(data1, data2):
-    keys = (data1.keys() | data2.keys())
-    result = {}
+def create_diff_tree(data1, data2):
+    keys = sorted(data1.keys() | data2.keys())
+    diff = {}
     for key in keys:
         if key not in data1:
-            result[key] = {'value': stringify(data2.get(key)),
-                           'category': 'added'}
+            diff[key] = {'value': stringify(data2[key]), 'category': 'added'}
         elif key not in data2:
-            result[key] = {'value': stringify(data1.get(key)),
-                           'category': 'deleted'}
+            diff[key] = {'value': stringify(data1[key]), 'category': 'deleted'}
         elif data1[key] == data2[key]:
-            result[key] = {'value': stringify(data1.get(key)),
-                           'category': 'unchanged'}
+            diff[key] = {'value': stringify(data1[key]),
+                         'category': 'unchanged'}
+        elif (isinstance(data1.get(key), dict) and
+              isinstance(data2.get(key), dict)):
+            diff[key] = {'value': create_diff_tree(data1[key], data2[key]),
+                         'category': 'nested'}
         else:
-            result[key] = {'old': stringify(data1.get(key)),
-                           'new': stringify(data2.get(key)),
-                           'category': 'changed'}
-    return result
+            diff[key] = {'value': (stringify(data1[key]),
+                                   stringify(data2[key])),
+                         'category': 'changed'}
+    return diff
 
 
-def generate_diff(f_path1, f_path2):
-    difference = diff_tree(format_parser(f_path1), format_parser(f_path2))
-    lines = []
-
-    for key in sorted(difference.keys()):
-        match difference.get(key).get('category'):
-            case 'added':
-                lines.append(f'  + {key}: {difference.get(key).get("value")}')
-            case 'deleted':
-                lines.append(f'  - {key}: {difference.get(key).get("value")}')
-            case 'unchanged':
-                lines.append(f'    {key}: {difference.get(key).get("value")}')
-            case 'changed':
-                lines.append(f'  - {key}: {difference.get(key).get("old")}')
-                lines.append(f'  + {key}: {difference.get(key).get("new")}')
-    result = itertools.chain("{", lines, "}")
-    return '\n'.join(result)
+def generate_diff(fpath1, fpath2, output_format='stylish'):
+    file1, file2 = parser(fpath1), parser(fpath2)
+    diff = create_diff_tree(file1, file2)
+    formatter = formatters_map.get(output_format, 'stylish')
+    return formatter(diff)
