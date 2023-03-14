@@ -1,10 +1,9 @@
 {
   "Aidan Gillen": {
-      "aboolean": "true",
-      "array": [
-          "Game of Thrones",
-          "The Wire"
-      ],
+      "aboolean": true,
+      "array": {
+          "Game of Thrones": "The Wire"
+      },
       "boolean": false,
       "int": "2",
       "object": {
@@ -13,10 +12,7 @@
       "otherint": 4,
       "string": "some string"
   },
-  "Alexander Skarsg?rd": [
-      "Generation Kill",
-      "True Blood"
-  ],
+  "Alexander Skarsg?rd": "Generation Kill",
   "Alice Farmer": [
       "The Corner",
       "Oz",
@@ -26,14 +22,14 @@
       "In Treatment",
       "The Wire"
   ],
-  "Annie Fitzgerald": [
-      "True Blood",
-      "Big Love",
-      "The Sopranos",
-      "Oz"
-  ],
-  "Anwan Glover": [
-      "Treme",
-      "The Wire"
-  ]
+  "Annie Fitzgerald": {
+      "True Blood": "AB",
+      "Big Love": null,
+      "The Sopranos": "440Hz",
+      "Oz": "Wizzard"
+  },
+  "Anwan Glover": {
+      "Treme": true,
+      "The Wire": false
+  }
 }

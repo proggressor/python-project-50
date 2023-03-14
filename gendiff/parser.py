@@ -9,5 +9,5 @@ def parser(file_path):
     elif file_path.endswith('.yml') or file_path.endswith('.yaml'):
         yaml_file = yaml.safe_load(open(file_path))
         return yaml_file
-    raise Exception(f'File {file_path} has an invalid extension.'
+    raise Exception(f'File {file_path} has an invalid extension\n'
                     f'Please select JSON-file or YAML-file')

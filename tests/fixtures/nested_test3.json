@@ -1,10 +1,9 @@
 {
   "Aidan Gillen": {
-      "aboolean": true,
-      "array": [
-          "Game of Thron\"es",
-          "The Wire"
-      ],
+      "aboolean": "TRUE",
+      "array": {
+        "Game of Thron\"es": "The Wire"
+      },
       "boolean": true,
       "int": 2,
       "object": {
@@ -24,21 +23,19 @@
       },
       "string": "some string"
   },
-  "Alexander Skarsgard": [
-      "Generation Kill",
-      "True Blood"
-  ],
+  "Alexander Skarsgard": "Generation Kill",
   "Amy Ryan": {
       "one": "In Treatment",
       "two": "The Wire"
   },
-  "Annie Fitzgerald": [
-      "Big Love",
-      "True Blood"
-  ],
-  "Anwan Glover": [
-      "Treme",
-      "The Wire"
-  ],
+  "Annie Fitzgerald": {
+      "True Blood": "AB",
+      "Big Love": null,
+      "Oz": "Great and Terrible"
+  },
+  "Anwan Glover": {
+      "Treme": true,
+      "The Wire": false
+  },
   "Clarke Peters": null
 }
