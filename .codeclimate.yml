@@ -1,2 +1,2 @@
 exclude_patterns:
-- "__init__.py"
+- "*/__init__.py"
