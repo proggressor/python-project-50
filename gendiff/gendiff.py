@@ -21,8 +21,8 @@ def create_diff_tree(data1, data2):
         elif data1[key] == data2[key]:
             diff[key] = {'value': stringify(data1[key]),
                          'category': 'unchanged'}
-        elif (isinstance(data1.get(key), dict) and
-              isinstance(data2.get(key), dict)):
+        elif (isinstance(data1.get(key), dict)
+              and isinstance(data2.get(key), dict)):
             diff[key] = {'value': create_diff_tree(data1[key], data2[key]),
                          'category': 'nested'}
         else:
