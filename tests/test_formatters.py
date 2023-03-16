@@ -1,80 +1,37 @@
 import pytest
-from . import expectations
 from gendiff.generate_diff import generate_diff
-
-
-@pytest.mark.parametrize("file_path1,file_path2,expected", [
-    ('tests/fixtures/flat_test1.json', 'tests/fixtures/flat_test2.json',
-     expectations.flat_stylish1),
-    ('tests/fixtures/flat_test1.yml', 'tests/fixtures/flat_test2.yml',
-     expectations.flat_stylish1),
-    ('tests/fixtures/flat_test3.json', 'tests/fixtures/flat_test4.json',
-     expectations.flat_stylish2),
-    ('tests/fixtures/flat_test3.yml', 'tests/fixtures/flat_test4.yml',
-     expectations.flat_stylish2)
-])
-def test_flat_stylish(file_path1, file_path2, expected):
-    assert generate_diff(file_path1, file_path2) == expected
-
-
-@pytest.mark.parametrize("file_path1,file_path2,expected", [
-    ('tests/fixtures/nested_test1.json', 'tests/fixtures/nested_test2.json',
-     expectations.nested_stylish1),
-    ('tests/fixtures/nested_test1.yml', 'tests/fixtures/nested_test2.yml',
-     expectations.nested_stylish1),
-    ('tests/fixtures/nested_test3.json', 'tests/fixtures/nested_test4.json',
-     expectations.nested_stylish2),
-    ('tests/fixtures/nested_test3.yml', 'tests/fixtures/nested_test4.yml',
-     expectations.nested_stylish2)
-])
-def test_nested_stylish(file_path1, file_path2, expected):
-    assert generate_diff(file_path1, file_path2) == expected
-
-
-@pytest.mark.parametrize("file_path1,file_path2,expected", [
-    ('tests/fixtures/flat_test1.json', 'tests/fixtures/flat_test2.json',
-     expectations.flat_plain1),
-    ('tests/fixtures/flat_test1.yml', 'tests/fixtures/flat_test2.yml',
-     expectations.flat_plain1),
-    ('tests/fixtures/flat_test3.json', 'tests/fixtures/flat_test4.json',
-     expectations.flat_plain2),
-    ('tests/fixtures/flat_test3.yml', 'tests/fixtures/flat_test4.yml',
-     expectations.flat_plain2)
-])
-def test_flat_plain(file_path1, file_path2, expected):
-    assert generate_diff(file_path1, file_path2,
-                         output_format='plain') == expected
-
-
-@pytest.mark.parametrize("file_path1,file_path2,expected", [
-    ('tests/fixtures/nested_test1.json', 'tests/fixtures/nested_test2.json',
-     expectations.nested_plain1),
-    ('tests/fixtures/nested_test1.yml', 'tests/fixtures/nested_test2.yml',
-     expectations.nested_plain1),
-    ('tests/fixtures/nested_test3.json', 'tests/fixtures/nested_test4.json',
-     expectations.nested_plain2),
-    ('tests/fixtures/nested_test3.yml', 'tests/fixtures/nested_test4.yml',
-     expectations.nested_plain2)
-])
-def test_nested_plain(file_path1, file_path2, expected):
-    assert generate_diff(file_path1, file_path2,
-                         output_format='plain') == expected
-
-
-@pytest.mark.parametrize("file_path1,file_path2,expected", [
-    ('tests/fixtures/flat_test1.json', 'tests/fixtures/flat_test2.json',
-     expectations.flat_json1),
-    ('tests/fixtures/flat_test1.yml', 'tests/fixtures/flat_test2.yml',
-     expectations.flat_json1),
-    ('tests/fixtures/flat_test3.json', 'tests/fixtures/flat_test4.json',
-     expectations.flat_json2),
-    ('tests/fixtures/flat_test3.yml', 'tests/fixtures/flat_test4.yml',
-     expectations.flat_json2)
-])
-def test_flat_json(file_path1, file_path2, expected):
-    assert generate_diff(file_path1, file_path2) == expected
 
 
 def test_wrong_extension():
     with pytest.raises(Exception):
-        generate_diff('gendiff/parser.py', 'tests/fixtures/nested_test2.json')
+        generate_diff('gendiff/parser.py', 'tests/fixtures/nested2.json')
+
+
+@pytest.fixture
+def expectation(style, hierarchy):
+    path = f'tests/fixtures/expectations/{style}_{hierarchy}'
+    with open(file=path) as file:
+        diff = str.join('', file.readlines())
+        return diff
+
+
+@pytest.mark.parametrize(argvalues=['json', 'plain', 'stylish'],
+                         argnames='style')
+@pytest.mark.parametrize(argvalues=['flat'], argnames='hierarchy')
+@pytest.mark.parametrize("path1,path2", [
+    ('tests/fixtures/flat1.json', 'tests/fixtures/flat2.json'),
+    ('tests/fixtures/flat1.yml', 'tests/fixtures/flat2.yml')
+])
+def test_gendiff_flat(path1, path2, style, expectation):
+    assert generate_diff(path1, path2, output_format=style) == expectation
+
+
+@pytest.mark.parametrize(argvalues=['json', 'plain', 'stylish'],
+                         argnames='style')
+@pytest.mark.parametrize(argvalues=['nested'], argnames='hierarchy')
+@pytest.mark.parametrize("path1,path2", [
+    ('tests/fixtures/nested1.json', 'tests/fixtures/nested2.json'),
+    ('tests/fixtures/nested1.yml', 'tests/fixtures/nested2.yml')
+])
+def test_gendiff_nested(path1, path2, style, expectation):
+    assert generate_diff(path1, path2, output_format=style) == expectation

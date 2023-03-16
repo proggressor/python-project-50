@@ -20,8 +20,8 @@ def make_stylish(diff, spaces=0, replacer=' '):
         match category:
             case 'changed':
                 old, new = [make_stylish(changed, spaces) for changed in value]
-                lines.append(f'{indent}- {key}: {old}')
-                lines.append(f'{indent}+ {key}: {new}')
+                lines.append(f'{indent}- {key}:{" " if old else ""}{old}')
+                lines.append(f'{indent}+ {key}:{" " if new else ""}{new}')
             case 'nested':
                 value = make_stylish(value, spaces)
                 lines.append(f'{indent}  {key}: {value}')
