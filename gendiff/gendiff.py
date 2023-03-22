@@ -1,5 +1,13 @@
-from gendiff.parser import parser
-from gendiff.formatters import formatters_map
+from gendiff.parser import load_file
+from gendiff.formatters.stylish import make_stylish
+from gendiff.formatters.plain import make_plain
+from gendiff.formatters.json_f import make_json
+
+FORMATTERS_MAP = {
+    'stylish': make_stylish,
+    'plain': make_plain,
+    'json': make_json
+}
 
 
 def stringify(value):
@@ -33,7 +41,7 @@ def create_diff_tree(data1, data2):
 
 
 def generate_diff(fpath1, fpath2, output_format='stylish'):
-    file1, file2 = parser(fpath1), parser(fpath2)
+    file1, file2 = load_file(fpath1), load_file(fpath2)
     diff = create_diff_tree(file1, file2)
-    formatter = formatters_map.get(output_format, 'stylish')
+    formatter = FORMATTERS_MAP.get(output_format, 'stylish')
     return formatter(diff)

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hexlet-code"
-version = "0.8.0"
+version = "0.8.1"
 description = "Educational project of finding differences between two files"
 authors = ["Vorobyev <nikos1997@yandex.ru>"]
 readme = "README.md"

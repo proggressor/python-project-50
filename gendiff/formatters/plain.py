@@ -1,9 +1,8 @@
 def plain_tail(value):
-    complexes = {type(dict()), type(list())}
     str_exceptions = {'true', 'false', 'null'}
     if value == '':
         return "''"
-    elif type(value) in complexes:
+    elif isinstance(value, dict) or isinstance(value, list):
         return '[complex value]'
     elif isinstance(value, str) and value not in str_exceptions:
         return f"'{value}'"
