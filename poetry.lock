@@ -1,12 +1,4 @@
 [[package]]
-name = "argparse"
-version = "1.4.0"
-description = "Python command-line parsing library"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "attrs"
 version = "22.2.0"
 description = "Classes Without Boilerplate"
@@ -173,13 +165,9 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "0c1db19953c342f071e1ac6d2e64b269db41e3d6c4c9ca3c68f83799091dc1b3"
+content-hash = "baa6bb90210e1f203412292cea0217664aa927ed1219680fc7f99350da9debc8"
 
 [metadata.files]
-argparse = [
-    {file = "argparse-1.4.0-py2.py3-none-any.whl", hash = "sha256:c31647edb69fd3d465a847ea3157d37bed1f95f19760b11a47aa91c04b666314"},
-    {file = "argparse-1.4.0.tar.gz", hash = "sha256:62b089a55be1d8949cd2bc7e0df0bddb9e028faefc8c32038cc84862aefdd6e4"},
-]
 attrs = [
     {file = "attrs-22.2.0-py3-none-any.whl", hash = "sha256:29e95c7f6778868dbd49170f98f8818f78f3dc5e0e37c0b1f474e3561b240836"},
     {file = "attrs-22.2.0.tar.gz", hash = "sha256:c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99"},

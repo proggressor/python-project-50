@@ -1,4 +1,4 @@
-from gendiff.parser import load_file
+from gendiff.parser import read_file, parse
 from gendiff.formatters.stylish import make_stylish
 from gendiff.formatters.plain import make_plain
 from gendiff.formatters.json_f import make_json
@@ -41,7 +41,9 @@ def create_diff_tree(data1, data2):
 
 
 def generate_diff(fpath1, fpath2, output_format='stylish'):
-    file1, file2 = load_file(fpath1), load_file(fpath2)
+    content1, extension1 = read_file(fpath1)
+    content2, extension2 = read_file(fpath2)
+    file1, file2 = parse(content1, extension1), parse(content2, extension2)
     diff = create_diff_tree(file1, file2)
     formatter = FORMATTERS_MAP.get(output_format, 'stylish')
     return formatter(diff)

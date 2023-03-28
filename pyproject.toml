@@ -11,7 +11,6 @@ repository = 'https://github.com/proggressor/python-project-50'
 
 [tool.poetry.dependencies]
 python = "^3.10"
-argparse = "^1.4.0"
 pyyaml = "^6.0"
 
 [tool.poetry.group.dev.dependencies]
